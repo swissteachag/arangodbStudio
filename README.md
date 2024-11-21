@@ -14,9 +14,9 @@ Welcome to ArangoDB Studio, a Visual Studio Code extension designed to help you 
 Below is an example of the extension in action:
 
 - Browse ArangoDB Collections  
-  ![Browsing Collections](images/browse-collections.png)
+
 - Edit and Save Documents  
-  ![Editing Documents](images/edit-document.png)
+
 
 > Tip: Utilize VS Code's split editor feature to view documents side by side and manage multiple ArangoDB documents simultaneously.
 
