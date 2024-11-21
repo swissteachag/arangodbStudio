@@ -5,11 +5,38 @@ const assert = require('assert');
 const vscode = require('vscode');
 // const myExtension = require('../extension');
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-	});
+suite('ArangoDB Studio Extension Test Suite', () => {
+    vscode.window.showInformationMessage('Start all tests.');
+
+    test('Activate Extension', async () => {
+        const extension = vscode.extensions.getExtension('swissteach-ag.arangodbstudioarangodbstudio');
+        assert.ok(extension, 'Extension should be present');
+        await extension.activate();
+        assert.strictEqual(extension.isActive, true, 'Extension should be activated');
+    });
+
+    test('Command Registration', async () => {
+        const extension = vscode.extensions.getExtension('swissteach-ag.arangodbstudio.arangodbstudio');
+        await extension.activate();
+
+        const command = vscode.commands.getCommands(true);
+        assert.ok(command.includes('arangodbstudio.connect'), 'Connect command should be registered');
+        assert.ok(command.includes('arangodbstudio.openDocument'), 'Open Document command should be registered');
+        assert.ok(command.includes('arangodbstudio.saveDocument'), 'Save Document command should be registered');
+    });
+
+    test('Connect to ArangoDB Command', async () => {
+        const command = 'arangodbstudio.connect';
+        let commandExecuted = false;
+
+        const disposable = vscode.commands.registerCommand(command, () => {
+            commandExecuted = true;
+        });
+
+        await vscode.commands.executeCommand(command);
+        assert.strictEqual(commandExecuted, true, 'Connect to ArangoDB command should be executed');
+
+        disposable.dispose();
+    });
 });
